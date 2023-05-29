@@ -31,10 +31,16 @@ evaluating their model interaction strategies in domain-specific scenarios.
 
 | Statistic                        | Value |
 |-----------------------------|---------|
-| Date range             | XX days|
-| # data | | 
-
-
+| Date range             | 1304 days|
+| # data | 32765|
+| # tags | 377| 
+| Avg. # questions per tag | 111 |
+| Avg. # tags per question | 1.28 |
+| Avg. #tokens per question | 276.29 | 
+| Avg. #tokens per answer | 278.78 |
+| Avg. #upvotes per question | 0.04 |
+| Avg. #upvotes per answer | 0.28 |
+| Avg. #upvotes per sample | 0.32 |
 ### Data Filtering and Post-processing
 
 ### Data example
