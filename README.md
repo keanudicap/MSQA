@@ -27,6 +27,12 @@ enabling easy maintenance and privacy protection within the specific domain.
 We release MSQA data and believe that this benchmarking dataset will assist the research community in
 evaluating their model interaction strategies in domain-specific scenarios.
 
+### Directory Structure
+The directory structure of this repository is as follows:
+- `data/`: Stores the data, which is the MSQA dataset.
+- `process/`: Stores the code for data cleaning.
+- `viz/`: Stores the code and files related to visualization.
+
 ### Statistics of MSQA
 
 | Statistic                        | Value |
