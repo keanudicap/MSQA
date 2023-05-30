@@ -98,8 +98,7 @@ If you think the release of this dataset might infringe your copyright, please i
 
 
 ## Paper and Citation
-
-[Paper](https://arxiv.org/abs/2305.11541)
+https://arxiv.org/abs/2305.11541
 ```
 @misc{wang2023empower,
       title={Empower Large Language Model to Perform Better on Industrial Domain-Specific Question Answering}, 
