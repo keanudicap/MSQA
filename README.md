@@ -40,7 +40,7 @@ The directory structure of this repository is as follows:
 | Start Date | 2019-10-29 |
 | End Date | 2023-05-25 |
 | Date range             | 1304 days|
-| # data | 32765 |
+| # data | 32764 |
 | # tags | 377 | 
 | Avg. # questions per tag | 111 |
 | Avg. # tags per question | 1.28 |

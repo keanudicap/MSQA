@@ -358,3 +358,6 @@ def detect_attachment(text):
     
 def detect_and_remove_pic_case(text):
     return detect_and_remove_case(text, detect_attachment)
+
+def detect_and_remove_symbols_only_question(text):
+    return detect_and_remove_case(text, detect_is_symbols_only)

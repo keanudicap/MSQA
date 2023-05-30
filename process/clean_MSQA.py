@@ -28,6 +28,7 @@ if __name__ == "__main__":
 
     ques_functions = [
         detect_and_remove_pic_case,
+        detect_and_remove_symbols_only_question
     ]
 
     data = pd.read_csv("../data/msqa-p-32k.csv")
