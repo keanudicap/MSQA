@@ -82,9 +82,9 @@ Below is an actual example from the MSQA dataset:
 
 To facilitate manual inspection of the effectiveness of data filtering, we developed a script, `viz.py`, that visualizes the differences before and after data filtering. Below is an example of the visualization,
 
-![visualization-demo](https://github.com/keanudicap/MSQA/blob/wzz/pic/demo_pic.png)
+![visualization-demo](https://github.com/keanudicap/MSQA/blob/main/pic/demo_pic.png)
 
-The source files for this demo can be found at [viz_demo.html](https://github.com/keanudicap/MSQA/blob/wzz/viz_demo.html).
+The source files for this demo can be found at [viz_demo.html](https://github.com/keanudicap/MSQA/blob/main/viz/viz_demo.html).
 
 
 ## License
