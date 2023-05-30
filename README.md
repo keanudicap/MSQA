@@ -1,6 +1,6 @@
 # Microsoft Q&A (MSQA)
 
-Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the Microsoft Q&A forum (https://learn.microsoft.com/en-us/answers/). The dataset covers a wide range of Mi-crosoft technologies and products, including Azure,Office 365, Windows, and more. It contains 62k QA pairs, wher the answer is human-generated and selected as accepted answer.
+Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the Microsoft Q&A forum (https://learn.microsoft.com/en-us/answers/). The dataset covers a wide range of Mi-crosoft technologies and products, including Azure,Office 365, Windows, and more. It contains 32k QA pairs, wher the answer is human-generated and selected as accepted answer.
 
 
 ## News
@@ -57,9 +57,30 @@ Due to the data being collected from an online Q&A forum, the content is complex
 ### Data example
 Below is an actual example from the MSQA dataset:
 
-| QuestionId | AnswerId | CreationDate | Score | QuestionScore | AnswerScore | Tags | IsAzure | IsM365 | IsOther | QuestionText | AnswerText | Url | ProcessedAnswerText |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 879 | 868 | 2019-11-06T02:18:47.397Z | 1 | 0 | 1 | ["Universal Windows Platform (UWP)"] | False | False | True | Can we control these three buttons:"The system Back, Close, Minimize, and Maximize buttons"<br>Based on the doc:    <br>    <br>[https://learn.microsoft.com/en-us/windows/uwp/design/shell/title-bar#how-much-to-customize-the-title-bar]()    <br>    <br>"When you opt for full customization, you are responsible for putting content in the title bar area, and you can define your own draggable region. **The system Back, Close, Minimize, and Maximize buttons are still available and handled by the system**, but elements like the app title are not. You will need to create those elements yourself as needed by your app."    <br>    <br>Does it mean that we cannot control these three buttons?     <br> | Hello,<br><br><br><br>Welcome to our Microsoft Q&A platform!<br><br><br><br>\*\>\>The system Back, Close, Minimize, and Maximize buttons are still available and \*\*handled by the system\*<br><br><br><br>Yes, as the document saied, you can put content in the title bar area, and define your own draggable region. But the Back, Close, Minimize, and Maximize buttons are still controlled by the system.<br><br><br><br>Thanks.<br><br> | https://learn.microsoft.com/en-us/answers/questions/879/can-we-control-these-three-buttons-the-system-back.html | \*\>\>The system Back, Close, Minimize, and Maximize buttons are still available and \*\*handled by the system\*<br>Yes, as the document saied, you can put content in the title bar area, and define your own draggable region. But the Back, Close, Minimize, and Maximize buttons are still controlled by the system. |
+| Attribut | Value |
+| --- | --- |
+| QuestionId | 247 |
+ AnswerId | 345 |
+ CreationDate | 2019-10-29T21:52:46.9Z |
+ Score | 1 |
+ QuestionScore | 0 |
+ AnswerScore | 1 |
+ Tags | ["Azure Web Apps"] |
+ IsAzure | True |
+ IsM365 | False |
+ IsOther | False |
+ QuestionText | Buy custom domain for Azure Web App<br>I want to purchase a new custom domain for my Azure Web App ?    <br>    <br>[Sourced from FAQ][1]    <br>    <br>  [1]: https://learn.microsoft.com/en-us/azure/app-service/manage-custom-dns-buy-domain |
+ AnswerText | App Service Free and Shared (preview) hosting plans are base tiers that run on the same Azure virtual machines as other App Service apps. Some apps might belong to other customers. These tiers are intended to be used only for development and testing purposes.    <br>    <br>To use custom domains in Azure App Service, your app's App Service plan must be a **paid tier** (Shared, Basic, Standard, or Premium). In this step, you make sure that the app is in the supported pricing tier.    <br>    <br>    <br>To learn how to purchase and set up a custom domain for your App Service web app, see [Buy and configure a custom domain name in App Service.][1]    <br>    <br>[Sourced from FAQ][1]    <br>    <br>  [1]: https://learn.microsoft.com/en-us/azure/app-service/manage-custom-dns-buy-domain    <br> |
+ Url | https://learn.microsoft.com/en-us/answers/questions/247/buy-custom-domain-for-azure-web-app.html |
+ ProcessedAnswerText | App Service Free and Shared (preview) hosting plans are base tiers that run on the same Azure virtual machines as other App Service apps. Some apps might belong to other customers. These tiers are intended to be used only for development and testing purposes.    <br>To use custom domains in Azure App Service, your app's App Service plan must be a **paid tier** (Shared, Basic, Standard, or Premium). In this step, you make sure that the app is in the supported pricing tier.    <br>To learn how to purchase and set up a custom domain for your App Service web app, see [Buy and configure a custom domain name in App Service.](https://learn.microsoft.com/en-us/azure/app-service/manage-custom-dns-buy-domain)    <br>[Sourced from FAQ](https://learn.microsoft.com/en-us/azure/app-service/manage-custom-dns-buy-domain) |
+
+
+To facilitate manual inspection of the effectiveness of data filtering, we developed a script, `viz.py`, that visualizes the differences before and after data filtering. Below is an example of the visualization,
+
+![visualization-demo](https://github.com/keanudicap/MSQA/blob/wzz/pic/demo_pic.png)
+
+The source files for this demo can be found at [viz_demo.html](https://github.com/keanudicap/MSQA/blob/wzz/viz_demo.html).
+
 
 ## License
 This dataset is released under open data license, CDLA-Permissive-2 (https://cdla.dev/permissive-2-0/)
@@ -69,7 +90,6 @@ This dataset is released under open data license, CDLA-Permissive-2 (https://cdl
 **\*\*Please DO NOT re-distribute our data.\*\***
 
 If you think the release of this dataset might infringe your copyright, please inform us via the email fangkaiyang@microsoft.com for taking down the dataset.
-
 
 
 ## Paper and Citation
