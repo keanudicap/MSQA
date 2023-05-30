@@ -8,7 +8,7 @@ Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the 
 
 
 ## Introduction
-Recent advancements in large language models(LLMs) have demonstrated
+Recent advancements in large language models (LLMs) have demonstrated
 their impressive performance across various natural language processing (NLP)
 tasks. However, when it comes to domain-specfic problems, LLMs exhibit limited
 performance due to their insufficient pretraining on domain knowledge. Fine-tuning
