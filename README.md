@@ -31,9 +31,11 @@ evaluating their model interaction strategies in domain-specific scenarios.
 
 | Statistic                        | Value |
 |-----------------------------|---------|
+| Start Date | 2019-10-29 |
+| End Date | 2023-05-25 |
 | Date range             | 1304 days|
-| # data | 32765|
-| # tags | 377| 
+| # data | 32765 |
+| # tags | 377 | 
 | Avg. # questions per tag | 111 |
 | Avg. # tags per question | 1.28 |
 | Avg. #tokens per question | 276.29 | 
@@ -43,11 +45,21 @@ evaluating their model interaction strategies in domain-specific scenarios.
 | Avg. #upvotes per sample | 0.32 |
 ### Data Filtering and Post-processing
 
+Due to the data being collected from an online Q&A forum, the content is complex and includes a large number of decorative symbols and platform-generated content, which is hard to be used for research directly. To address this issue, we conducted a deep sampling of the collected data, summarized the existing problems, identified patterns, and designed the following data filtering pipeline:
+- Remove user-id.
+- Standardize all links using the Markdown link reference syntax to organize them into a unified format.
+- Remove platform-generated content, such as messages asking for upvotes or email notifications.
+- Remove irregular decorative symbols added by users, such as asterisks for separation.
+- Match various line breaks and replace consecutive multiple line breaks with a single one.
+- Detect image links in questions and remove samples with screenshots, as the dataset focuses solely on plain text.
+- Detect the length of questions and specifically label samples with questions exceeding 8192 tokens, as these may require special handling or truncation for current models.
+
 ### Data example
+Below is an actual example from the MSQA dataset:
 
-<!-- the table of one data example -->
-
-<!-- your data visualization of before and after post-processing -->
+| QuestionId | AnswerId | CreationDate | Score | QuestionScore | AnswerScore | Tags | IsAzure | IsM365 | IsOther | QuestionText | AnswerText | Url | ProcessedAnswerText |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 879 | 868 | 2019-11-06T02:18:47.397Z | 1 | 0 | 1 | ["Universal Windows Platform (UWP)"] | False | False | True | Can we control these three buttons:"The system Back, Close, Minimize, and Maximize buttons"<br>Based on the doc:    <br>    <br>[https://learn.microsoft.com/en-us/windows/uwp/design/shell/title-bar#how-much-to-customize-the-title-bar]()    <br>    <br>"When you opt for full customization, you are responsible for putting content in the title bar area, and you can define your own draggable region. **The system Back, Close, Minimize, and Maximize buttons are still available and handled by the system**, but elements like the app title are not. You will need to create those elements yourself as needed by your app."    <br>    <br>Does it mean that we cannot control these three buttons?     <br> | Hello,<br><br><br><br>Welcome to our Microsoft Q&A platform!<br><br><br><br>\*\>\>The system Back, Close, Minimize, and Maximize buttons are still available and \*\*handled by the system\*<br><br><br><br>Yes, as the document saied, you can put content in the title bar area, and define your own draggable region. But the Back, Close, Minimize, and Maximize buttons are still controlled by the system.<br><br><br><br>Thanks.<br><br> | https://learn.microsoft.com/en-us/answers/questions/879/can-we-control-these-three-buttons-the-system-back.html | \*\>\>The system Back, Close, Minimize, and Maximize buttons are still available and \*\*handled by the system\*<br>Yes, as the document saied, you can put content in the title bar area, and define your own draggable region. But the Back, Close, Minimize, and Maximize buttons are still controlled by the system. |
 
 ## License
 This dataset is released under open data license, CDLA-Permissive-2 (https://cdla.dev/permissive-2-0/)
