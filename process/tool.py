@@ -63,10 +63,25 @@ def detect_and_remove_user_mentions(text):
     pat_list = [
         re.compile(r'\[@.*?\]\(.*?\)'), 
         re.compile(r'@\[.*?\]\(.*?\)'), 
-        re.compile(r'@\[.*?\]'), 
-        re.compile(r'@.*? ')
+        re.compile(r'@\[.*?\]')
     ]
 
+    results = []
+    for pat in pat_list:
+        res = pat.findall(text)
+        results.extend(res)
+        break
+    for x in results:
+        text = text.replace(x, "")
+    return text
+
+def detect_and_remove_user_mentions_2(text):
+    pat_list = [
+        re.compile(r'\[@.*?\]\(.*?\)'), 
+        re.compile(r'@\[.*?\]\(.*?\)'), 
+        re.compile(r'@\[.*?\]'),
+        re.compile(r'@.*? ')
+    ]
     results = []
     if text.startswith("@"):
         target = text.split('\n')[0]

@@ -8,6 +8,7 @@ if __name__ == "__main__":
 
     
     ans_functions = [
+        detect_and_remove_user_mentions,
         replace_reference_with_link,
         remove_accept_answer_line,
         remove_ref_line,
@@ -18,10 +19,10 @@ if __name__ == "__main__":
         detect_and_remove_thank,
         detect_and_remove_welcome,
         detect_and_remove_hello,
-        detect_and_remove_user_mentions,
         detect_and_remove_hope,
         detect_and_remove_know,
         detect_and_remove_regards,
+        detect_and_remove_user_mentions_2,
         remove_symbols_only_line,
         remove_multiple_n,
         remove_space,
@@ -46,13 +47,13 @@ if __name__ == "__main__":
 
         if processed_ques != '1155121439' and processed_ans != '1155121439':
             res_dict = row.to_dict()
-            res_dict['ProcessedAnswerText'] = processed_ans
+            res_dict['ProcessedAnswerText'] = processed_ans if len(processed_ans.strip()) > 0 else None
             results.append(res_dict)
 
     df = pd.DataFrame(results)
+    s1 = df.shape[0]
     df.dropna(inplace=True)
-    print(f'{df.shape[0]} samples are saved.')
+    s2 = df.shape[0]
+    print(f'{s2} samples are saved. (nan: {s1-s2})')
     print(df.columns)
-    
-
     df.to_csv("../data/msqa-p-32k.csv", index=False)
