@@ -63,6 +63,7 @@ def detect_and_remove_user_mentions(text):
     pat_list = [
         re.compile(r'\[@.*?\]\(.*?\)'), 
         re.compile(r'@\[.*?\]\(.*?\)'), 
+        re.compile(r'\[.*?\]\(.*?userid=.*?\)'),
         re.compile(r'@\[.*?\]')
     ]
 
@@ -70,7 +71,6 @@ def detect_and_remove_user_mentions(text):
     for pat in pat_list:
         res = pat.findall(text)
         results.extend(res)
-        break
     for x in results:
         text = text.replace(x, "")
     return text
@@ -79,6 +79,7 @@ def detect_and_remove_user_mentions_2(text):
     pat_list = [
         re.compile(r'\[@.*?\]\(.*?\)'), 
         re.compile(r'@\[.*?\]\(.*?\)'), 
+        re.compile(r'\[.*?\]\(.*?userid=.*?\)'),
         re.compile(r'@\[.*?\]'),
         re.compile(r'@.*? ')
     ]
@@ -88,7 +89,6 @@ def detect_and_remove_user_mentions_2(text):
         for pat in pat_list:
             res = pat.findall(target)
             results.extend(res)
-            break
         for x in results:
             text = text.replace(x, "")
     return text
