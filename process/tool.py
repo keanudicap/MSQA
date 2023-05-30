@@ -1,4 +1,5 @@
 import re
+from langdetect import detect
 
 HTTP_PAT = re.compile(r'''(?xi)
 \b
@@ -58,9 +59,23 @@ def pipeline(text, functions):
         text = func(text)
     return text
 
-def remove_user_mentions(text):
-    for x in USER_MENTION_PAT.findall(text):
-        text = text.replace(x, "")
+def detect_and_remove_user_mentions(text):
+    pat_list = [
+        re.compile(r'\[@.*?\]\(.*?\)'), 
+        re.compile(r'@\[.*?\]\(.*?\)'), 
+        re.compile(r'@\[.*?\]'), 
+        re.compile(r'@.*? ')
+    ]
+
+    results = []
+    if text.startswith("@"):
+        target = text.split('\n')[0]
+        for pat in pat_list:
+            res = pat.findall(target)
+            results.extend(res)
+            break
+        for x in results:
+            text = text.replace(x, "")
     return text
 
 def detect_welcome(text):
@@ -361,3 +376,9 @@ def detect_and_remove_pic_case(text):
 
 def detect_and_remove_symbols_only_question(text):
     return detect_and_remove_case(text, detect_is_symbols_only)
+
+def detect_is_en(text):
+    return detect(text) != 'en'
+
+def detect_and_remove_not_en_question(text):
+    return detect_and_remove_case(text, detect_is_en)

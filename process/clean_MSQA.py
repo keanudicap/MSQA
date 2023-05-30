@@ -1,13 +1,13 @@
 import re
 from tool import *
 import pandas as pd
+from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 
 if __name__ == "__main__":
 
     
     ans_functions = [
-        remove_user_mentions, 
         replace_reference_with_link,
         remove_accept_answer_line,
         remove_ref_line,
@@ -18,6 +18,7 @@ if __name__ == "__main__":
         detect_and_remove_thank,
         detect_and_remove_welcome,
         detect_and_remove_hello,
+        detect_and_remove_user_mentions,
         detect_and_remove_hope,
         detect_and_remove_know,
         detect_and_remove_regards,
@@ -28,13 +29,14 @@ if __name__ == "__main__":
 
     ques_functions = [
         detect_and_remove_pic_case,
-        detect_and_remove_symbols_only_question
+        detect_and_remove_symbols_only_question,
+        detect_and_remove_not_en_question
     ]
 
     data = pd.read_csv("../data/msqa-p-32k.csv")
     
     results = []
-    for idx, row in data.iterrows():
+    for idx, row in tqdm(data.iterrows()):
         ques = row['QuestionText']
         ans = row['AnswerText']
         qid = row['QuestionId']
@@ -48,6 +50,7 @@ if __name__ == "__main__":
             results.append(res_dict)
 
     df = pd.DataFrame(results)
+    df.dropna(inplace=True)
     print(f'{df.shape[0]} samples are saved.')
     print(df.columns)
     
