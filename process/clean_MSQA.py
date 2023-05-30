@@ -30,7 +30,7 @@ if __name__ == "__main__":
         detect_and_remove_pic_case,
     ]
 
-    data = pd.read_csv("./msqa-p-45k.csv")
+    data = pd.read_csv("../data/msqa-p-32k.csv")
     
     results = []
     for idx, row in data.iterrows():
@@ -51,4 +51,4 @@ if __name__ == "__main__":
     print(df.columns)
     
 
-    df.to_csv("msqa-p-45k.csv", index=False)
+    df.to_csv("../data/msqa-p-32k.csv", index=False)
