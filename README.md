@@ -1,6 +1,6 @@
 # Microsoft Q&A (MSQA)
 
-Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the [Microsoft Q&A forum](https://learn.microsoft.com/en-us/answers/). The dataset covers a wide range of Mi-crosoft technologies and products, including Azure,Office 365, Windows, and more. It contains 32k QA pairs, wher the answer is human-generated and selected as accepted answer.
+Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the [Microsoft Q&A forum](https://learn.microsoft.com/en-us/answers/). The dataset covers a wide range of Mi-crosoft technologies and products, including Azure, Office 365, Windows, and more. It contains 32k QA pairs, wher the answer is human-generated and selected as accepted answer.
 
 
 ## News
@@ -8,7 +8,7 @@ Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the 
 
 
 ## Introduction
-Recent advancements in large language models(LLMs) have demonstrated
+Recent advancements in large language models (LLMs) have demonstrated
 their impressive performance across various natural language processing (NLP)
 tasks. However, when it comes to domain-specfic problems, LLMs exhibit limited
 performance due to their insufficient pretraining on domain knowledge. Fine-tuning
@@ -49,15 +49,20 @@ The directory structure of this repository is as follows:
 | Avg. #upvotes per question | 0.05 |
 | Avg. #upvotes per answer | 0.28 |
 | Avg. #upvotes per sample | 0.33 |
-### Data Filtering and Post-processing
 
+### Data Filtering
+We first filtered the raw data collected by applying the following criteria:
+- Discarded samples that contained attachments in the question or answer. Attachments are usually images, such as when a user takes a screenshot and asks a question. Since this work focuses mainly on text-based Q&A, samples containing attachments were discarded.
+- Discarded samples without an "Accept Answer". Some questions were not answered, or had answers that were not accepted.
+- Discarded samples with multi-turn discussions. Some questions contained multi-turn discussions, which were not within the scope of this work.
+
+### Data Post-processing
 Due to the data being collected from an online Q&A forum, the content is complex and includes a large number of decorative symbols and platform-generated content, which is hard to be used for research directly. To address this issue, we conducted a deep sampling of the collected data, summarized the existing problems, identified patterns, and designed the following data filtering pipeline:
 - Remove user-id.
 - Standardize all links using the Markdown link reference syntax to organize them into a unified format.
 - Remove platform-generated content, such as messages asking for upvotes or email notifications.
 - Remove irregular decorative symbols added by users, such as asterisks for separation.
 - Match various line breaks and replace consecutive multiple line breaks with a single one.
-- Detect image links in questions and remove samples with screenshots, as the dataset focuses solely on plain text.
 - Detect the length of questions and specifically label samples with questions exceeding 8192 tokens, as these may require special handling or truncation for current models.
 
 ### Data example
@@ -91,8 +96,6 @@ The source files for this demo can be found at [viz_demo.html](https://github.co
 This dataset is released under open data license, CDLA-Permissive-2 (https://cdla.dev/permissive-2-0/)
 
 ## Get Data
-
-**\*\*Please DO NOT re-distribute our data.\*\***
 
 If you think the release of this dataset might infringe your copyright, please inform us via the email fangkaiyang@microsoft.com for taking down the dataset.
 
