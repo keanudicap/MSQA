@@ -12,7 +12,7 @@ def foo(text1, text2, save_path):
 
 
 if __name__ == "__main__":
-    data_path = "./msqa-p-45k.csv"
+    data_path = "./msqa-p-32k.csv"
     save_path = './viz_demo.html'
     sample_idx = 42
 

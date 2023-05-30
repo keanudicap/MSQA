@@ -40,15 +40,15 @@ The directory structure of this repository is as follows:
 | Start Date | 2019-10-29 |
 | End Date | 2023-05-25 |
 | Date range             | 1304 days|
-| # data | 32765 |
+| # data | 32252 |
 | # tags | 377 | 
-| Avg. # questions per tag | 111 |
+| Avg. # questions per tag | 109.74 |
 | Avg. # tags per question | 1.28 |
-| Avg. #tokens per question | 276.29 | 
-| Avg. #tokens per answer | 278.78 |
-| Avg. #upvotes per question | 0.04 |
+| Avg. #tokens per question | 276.43 | 
+| Avg. #tokens per answer | 279.41 |
+| Avg. #upvotes per question | 0.05 |
 | Avg. #upvotes per answer | 0.28 |
-| Avg. #upvotes per sample | 0.32 |
+| Avg. #upvotes per sample | 0.33 |
 ### Data Filtering and Post-processing
 
 Due to the data being collected from an online Q&A forum, the content is complex and includes a large number of decorative symbols and platform-generated content, which is hard to be used for research directly. To address this issue, we conducted a deep sampling of the collected data, summarized the existing problems, identified patterns, and designed the following data filtering pipeline:
