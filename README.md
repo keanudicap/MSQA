@@ -92,8 +92,6 @@ This dataset is released under open data license, CDLA-Permissive-2 (https://cdl
 
 ## Get Data
 
-**\*\*Please DO NOT re-distribute our data.\*\***
-
 If you think the release of this dataset might infringe your copyright, please inform us via the email fangkaiyang@microsoft.com for taking down the dataset.
 
 
