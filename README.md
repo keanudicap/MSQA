@@ -1,6 +1,6 @@
 # Microsoft Q&A (MSQA)
 
-Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the [Microsoft Q&A forum](https://learn.microsoft.com/en-us/answers/). The dataset covers a wide range of Mi-crosoft technologies and products, including Azure, Office 365, Windows, and more. It contains 32k QA pairs, wher the answer is human-generated and selected as accepted answer.
+Microsoft Q&A (MSQA) dataset is a question-answering dataset collected from the [Microsoft Q&A forum](https://learn.microsoft.com/en-us/answers/). The dataset covers a wide range of Microsoft technologies and products, including Azure, Office 365, Windows, and more. It contains 32k QA pairs, wher the answer is human-generated and selected as accepted answer.
 
 
 ## News
