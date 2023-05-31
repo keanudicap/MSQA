@@ -18,8 +18,8 @@ and confidential, introducing risks of data leakage when using them for fine-tun
 
 Existing works leverage retrieval-based methods or external modules to extract domain-specific knowledge.
 However, these approaches suffer from limitations such as not retrieving all the necessary context when
-facing complex questions. We introduce a novel model interaction paradigm taht bridges domain-general and
-domain-specific knowledge. Our approach involves fine-tuning a small language model, e.g., LLaMA using
+facing complex questions. We introduce a novel model interaction paradigm that bridges domain-general and
+domain-specific knowledge. Our approach involves fine-tuning a small language model, e.g., LLaMA-7B using
 domain documentation to align it with domain-specific knowledge. Then we instruction-tune with MSQA scenario.
 This paradigm replaces traditional retrieval modules with the generation of domain-specific knowledge,
 enabling easy maintenance and privacy protection within the specific domain.
