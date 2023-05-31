@@ -49,15 +49,20 @@ The directory structure of this repository is as follows:
 | Avg. #upvotes per question | 0.05 |
 | Avg. #upvotes per answer | 0.28 |
 | Avg. #upvotes per sample | 0.33 |
-### Data Filtering and Post-processing
 
+### Data Filtering
+We first filtered the raw data collected by applying the following criteria:
+- Discarded samples that contained attachments in the question or answer. Attachments are usually images, such as when a user takes a screenshot and asks a question. Since this work focuses mainly on text-based Q&A, samples containing attachments were discarded.
+- Discarded samples without an "Accept Answer". Some questions were not answered, or had answers that were not accepted.
+- Discarded samples with multi-turn discussions. Some questions contained multi-turn discussions, which were not within the scope of this work.
+
+### Data Post-processing
 Due to the data being collected from an online Q&A forum, the content is complex and includes a large number of decorative symbols and platform-generated content, which is hard to be used for research directly. To address this issue, we conducted a deep sampling of the collected data, summarized the existing problems, identified patterns, and designed the following data filtering pipeline:
 - Remove user-id.
 - Standardize all links using the Markdown link reference syntax to organize them into a unified format.
 - Remove platform-generated content, such as messages asking for upvotes or email notifications.
 - Remove irregular decorative symbols added by users, such as asterisks for separation.
 - Match various line breaks and replace consecutive multiple line breaks with a single one.
-- Detect image links in questions and remove samples with screenshots, as the dataset focuses solely on plain text.
 - Detect the length of questions and specifically label samples with questions exceeding 8192 tokens, as these may require special handling or truncation for current models.
 
 ### Data example
