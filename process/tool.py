@@ -1,6 +1,7 @@
 import re
 from langdetect import detect
 
+
 HTTP_PAT = re.compile(r'''(?xi)
 \b
 (							
@@ -20,7 +21,7 @@ HTTP_PAT = re.compile(r'''(?xi)
   )
   (?:							
     [^\s()<>{}\[\]]+						
-    |								
+    |							
     \([^\s()]*?\([^\s()]+\)[^\s()]*?\)  
     |
     \([^\s]+?\)							
@@ -44,12 +45,14 @@ HTTP_PAT = re.compile(r'''(?xi)
     (?!@)			
   )
 )''')
-USER_MENTION_PAT = re.compile(r'\[@.*?\]\(.*?\)')
+USER_MENTION_PAT = re.compile(r'\[@.*?\]\(.*?\)') 
 PIC_PAT = re.compile(r"\!\[.*?]\[\d+\]")
 REF_PAT = re.compile(r'\[\d+\]: /api/attachments/.*')
 AZURE_LINK_PAT = re.compile(r"\[[^\[\]]*?\]\[\d+\]")
+# AZURE_REF_PAT = re.compile(r'\[\d+\]:.*')
 AZURE_REF_PAT = re.compile(r'\[\d+\]: \S+')
-SLASH_AND_DASH_PAT = re.compile(r"(\\-+|---+)")
+# SLASH_AND_DASH_PAT = re.compile(r"(\\-+|---+)")
+SLASH_AND_DASH_PAT = re.compile(r"(\\--+|---+)")
 SYMBOLS = " ,.·>\n!"
 STAR_SYMBOL_PAT = re.compile(r"\*\*\*\*+")
 AZURE_ATTACHMENT_PAT= re.compile(r'/api/attachments/')
@@ -57,6 +60,22 @@ AZURE_ATTACHMENT_PAT= re.compile(r'/api/attachments/')
 def pipeline(text, functions):
     for func in functions:
         text = func(text)
+    return text
+
+
+def load_name_lists(p):
+    with open(p, 'r') as f:
+        name_list = [x.strip() for x in f.readlines()]
+    return name_list
+
+NAME_LIST = load_name_lists('username/name_all.txt')
+def detect_name_and_remove(text):
+    '''Suppose the text is clear at the begining and end.'''
+    for name in NAME_LIST:
+        if text.startswith(name):
+            text = text[len(name):]
+        if text.endswith(name):
+            text = text[:-len(name)]
     return text
 
 def detect_and_remove_user_mentions(text):
@@ -188,7 +207,7 @@ def detect_and_remove_regards(text):
     split_pat = r"[.!\n\r]"
     results = []
     for sentence in re.split(split_pat, text):
-        if 'regards' in sentence.lower() and len(sentence) <= 30:
+        if 'regards' in sentence and len(sentence) <= 30:
             results.append(sentence)
     if len(results) > 0:
         for res in results:
@@ -316,6 +335,7 @@ def detect_accept_answer(text):
         or "up-vote" in text \
         or "upvote" in text \
         or "vote as helpful" in text \
+        or "accept helpful response" in text \
         or "replies as answer" in text:
         return True
     else:
@@ -393,7 +413,17 @@ def detect_and_remove_symbols_only_question(text):
     return detect_and_remove_case(text, detect_is_symbols_only)
 
 def detect_is_en(text):
-    return detect(text) != 'en'
+    '''
+    True: Not English.
+    False: English.
+    '''
+    try:
+        lang = detect(text)
+    except:
+        print('Error in language detection.')
+        return True
+    else:
+        return lang != 'en'
 
 def detect_and_remove_not_en_question(text):
     return detect_and_remove_case(text, detect_is_en)
