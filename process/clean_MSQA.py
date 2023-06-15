@@ -22,10 +22,18 @@ if __name__ == "__main__":
         detect_and_remove_hope,
         detect_and_remove_know,
         detect_and_remove_regards,
-        remove_symbols_only_line,
+        remove_symbols_only_line, #
         remove_space,
         detect_name_and_remove,
-        remove_symbols_only_line,
+        remove_symbols_only_line, #
+        remove_multiple_n,
+        remove_space,
+        remove_short_end,
+        remove_symbols_only_line, #
+        remove_multiple_n,
+        remove_space,
+        remove_short_end,
+        remove_symbols_only_line, #
         remove_multiple_n,
         remove_space,
     ]
@@ -36,7 +44,7 @@ if __name__ == "__main__":
         detect_and_remove_not_en_question
     ]
 
-    data = pd.read_csv("../MSQA/data/msqa-p-32k.csv")
+    data = pd.read_csv("../MSQA/data/msqa-32k.csv")
     
     results = []
     for idx, row in tqdm(data.iterrows()):
@@ -59,4 +67,4 @@ if __name__ == "__main__":
     print(df.columns)
     
 
-    df.to_csv("../MSQA/data/msqa-p-32k.csv", index=False)
+    df.to_csv("./data/msqa-32k.csv", index=False)

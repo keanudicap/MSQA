@@ -4,48 +4,48 @@ from langdetect import detect
 
 HTTP_PAT = re.compile(r'''(?xi)
 \b
-(							
+(							# Capture 1: entire matched URL
   (?:
-    https?:				
+    https?:				# URL protocol and colon
     (?:
-      /{1,3}						
-      |								
-      [a-z0-9%]						
-      								
+      /{1,3}						# 1-3 slashes
+      |								#   or
+      [a-z0-9%]						# Single letter or digit or '%'
+      								# (Trying not to match e.g. "URI::Escape")
     )
-    |							
-    							
+    |							#   or
+    							# looks like domain name followed by a slash:
     [a-z0-9.\-]+[.]
     (?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj| Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)
     /
   )
-  (?:							
-    [^\s()<>{}\[\]]+						
-    |							
-    \([^\s()]*?\([^\s()]+\)[^\s()]*?\)  
+  (?:							# One or more:
+    [^\s()<>{}\[\]]+						# Run of non-space, non-()<>{}[]
+    |								#   or
+    \([^\s()]*?\([^\s()]+\)[^\s()]*?\)  # balanced parens, one level deep: (…(…)…)
     |
-    \([^\s]+?\)							
+    \([^\s]+?\)							# balanced parens, non-recursive: (…)
   )+
-  (?:							
-    \([^\s()]*?\([^\s()]+\)[^\s()]*?\)  
+  (?:							# End with:
+    \([^\s()]*?\([^\s()]+\)[^\s()]*?\)  # balanced parens, one level deep: (…(…)…)
     |
-    \([^\s]+?\)							
-    |									
-    [^\s`!()\[\]{};:'".,<>?«»“”‘’]		
+    \([^\s]+?\)							# balanced parens, non-recursive: (…)
+    |									#   or
+    [^\s`!()\[\]{};:'".,<>?«»“”‘’]		# not a space or one of these punct chars
   )
-  |					
+  |					# OR, the following to match naked domains:
   (?:
-  	(?<!@)			
+  	(?<!@)			# not preceded by a @, avoid matching foo@_gmail.com_
     [a-z0-9]+
     (?:[.\-][a-z0-9]+)*
     [.]
     (?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj| Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)
     \b
     /?
-    (?!@)			
+    (?!@)			# not succeeded by a @, avoid matching "foo.na" in "foo.na@example.com"
   )
 )''')
-USER_MENTION_PAT = re.compile(r'\[@.*?\]\(.*?\)') 
+USER_MENTION_PAT = re.compile(r'\[@.*?\]\(.*?\)')
 PIC_PAT = re.compile(r"\!\[.*?]\[\d+\]")
 REF_PAT = re.compile(r'\[\d+\]: /api/attachments/.*')
 AZURE_LINK_PAT = re.compile(r"\[[^\[\]]*?\]\[\d+\]")
@@ -62,13 +62,19 @@ def pipeline(text, functions):
         text = func(text)
     return text
 
+# def remove_user_mentions(text):
+#     # pattern = re.compile(' \[@[^\]]+\]\(/users/na/\?userid=[^\)]+\)')
+#     for x in USER_MENTION_PAT.findall(text):
+#         text = text.replace(x, "")
+#     return text
 
-def load_name_lists(p):
+
+def load_lists(p):
     with open(p, 'r') as f:
-        name_list = [x.strip() for x in f.readlines()]
+        name_list = f.readlines()
     return name_list
 
-NAME_LIST = load_name_lists('username/name_all.txt')
+NAME_LIST = [x.strip() for x in load_lists('username/name_all.txt')]
 def detect_name_and_remove(text):
     '''Suppose the text is clear at the begining and end.'''
     for name in NAME_LIST:
@@ -76,6 +82,17 @@ def detect_name_and_remove(text):
             text = text[len(name):]
         if text.endswith(name):
             text = text[:-len(name)]
+    return text
+
+SHORT_END_LIST = [x.strip() for x in list(set(load_lists('username/short_end.txt')))]
+def remove_short_end(text):
+    if len(text) > 0:
+        split_text = text.split('\n')
+        last_paragraph = split_text[-1]
+        if last_paragraph.strip() in SHORT_END_LIST:
+            # text.replace(last_paragraph, '')
+            text = '\n'.join(split_text[:-1])
+            print(last_paragraph)
     return text
 
 def detect_and_remove_user_mentions(text):
@@ -131,7 +148,8 @@ def detect_welcome(text):
         
 def detect_and_remove_welcome(text):
     target_paragraphs = []
-    for paragraph in text.split("\n"):
+    split_pat = r'[.\n]'
+    for paragraph in re.split(split_pat, text):
         if "welcome" in paragraph.lower():
             pat_list = ['Q&A', 'QnA', 'Q & A', 'Q&amp;A','Q@A']
             lower_pat_list = ['microsoft','welcome to azure','welcome back',
@@ -148,6 +166,16 @@ def detect_and_remove_welcome(text):
     for paragraph in target_paragraphs:
             text = text.replace(paragraph, "")
     return text
+
+    # split_pat = r'[.\n]'
+    # if detect_welcome(text):
+    #     target_paragraphs = []
+    #     for paragraph in re.split(split_pat, text):
+    #         if "welcome" in paragraph.lower():
+    #             target_paragraphs.append(paragraph)
+    #     for paragraph in target_paragraphs:
+    #         text = text.replace(paragraph, "")
+    # return text
 
 def detect_and_remove_hello(text):
     split_pat_1 = r'[.\n\r]'
@@ -280,6 +308,8 @@ def detect_and_remove_line(text, detect_func):
     detect_func: {detect_user_mentions, detect_accept_answer}
     '''
     res = ""
+    # split_pat = r'[\n\r]'
+    # for text_piece in re.split(split_pat,text):
     for text_piece in text.split("\n"):
         if not detect_func(text_piece):
             res += text_piece + "\n"
