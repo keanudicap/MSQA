@@ -12,7 +12,7 @@ Recent advancements in large language models (LLMs) have demonstrated
 their impressive performance across various natural language processing (NLP)
 tasks. However, when it comes to domain-specfic problems, LLMs exhibit limited
 performance due to their insufficient pretraining on domain knowledge. Fine-tuning
-and maintaining LLMs to incorparte domain-specific knowledge could be expensive
+and maintaining LLMs to incorporate domain-specific knowledge could be expensive
 for researchers. In addition, the availability of domain-specific data is often restricted
 and confidential, introducing risks of data leakage when using them for fine-tuning LLMs.
 
